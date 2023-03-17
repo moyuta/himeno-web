@@ -33,7 +33,8 @@ export default defineNuxtConfig({
         scss: {
           additionalData: '@import "@/assets/scss/_variable.scss"; \
           @import "@/assets/scss/_reset.scss"; \
-          @import "@/assets/scss/_setting.scss";'
+          @import "@/assets/scss/_setting.scss"; \
+          @import "@/assets/scss/_function.scss";'
         },
       },
     },

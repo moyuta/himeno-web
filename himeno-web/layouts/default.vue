@@ -2,14 +2,16 @@
   <div>
     <AppHeader />
     <NuxtPage />
-    <p>footer</p>
+    <AppFooter />
   </div>
 </template>
 <script>
 import AppHeader from "../components/organisms/AppHeader";
+import AppFooter from "../components/organisms/AppFooter";
 export default {
   components: {
     AppHeader,
+    AppFooter,
   },
   setup() {
     return {};
