@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     head: {
       meta: [
         // <meta name="viewport" content="width=device-width, initial-scale=1">
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
       ],
       script: [
         {
@@ -21,8 +21,8 @@ export default defineNuxtConfig({
       // please note that this is an area that is likely to change
       noscript: [
         // <noscript>JavaScript is required</noscript>
-        { children: 'JavaScript is required' }
-      ]
+        { children: "JavaScript is required" },
+      ],
     },
   },
 
@@ -31,13 +31,14 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "@/assets/scss/_variable.scss"; \
+          additionalData:
+            '@import "@/assets/scss/_variable.scss"; \
           @import "@/assets/scss/_reset.scss"; \
           @import "@/assets/scss/_setting.scss"; \
-          @import "@/assets/scss/_function.scss";'
+          @import "@/assets/scss/_function.scss";',
         },
       },
     },
   },
-});
 
+});
