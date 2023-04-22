@@ -39,6 +39,12 @@ export default {
     padding: 8px;
   }
 
+  tr {
+    @include mq('sp') {
+      display: grid;
+    }
+  }
+
   &__name {
     background: #d8d8d8;
     padding: 0 rem(20);
