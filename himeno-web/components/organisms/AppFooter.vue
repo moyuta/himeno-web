@@ -75,6 +75,7 @@ export default {
 .footer__inner {
   background: $brown;
   padding: rem(107) rem(120) rem(46);
+  margin-top: rem(200);
   @include mq("sp") {
     padding: rem(30) rem(20);
   }

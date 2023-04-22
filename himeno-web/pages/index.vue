@@ -10,16 +10,19 @@
       borderRadius="35px"
     />
     <CarouselSlider />
+    <BasicTable />
   </div>
 </template>
 
 <script>
 import { LinkButton } from "../components/atoms/Button";
 import { CarouselSlider } from "../components/atoms/Carousel";
+import { BasicTable } from "../components/atoms/Table";
 export default {
   components: {
     LinkButton,
     CarouselSlider,
+    BasicTable,
   },
   setup() {
     return {};
