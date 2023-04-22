@@ -1,6 +1,6 @@
 <template>
   <div>
-    <swiper v-bind="swiperOptions" @swiper="onSwiper" class="main-swiper">
+    <swiper v-bind="swiperOptions" @swiper="onSwiper" :modules="[Thumbs]" :thumbs="{ swiper: thumbsSwiper }" class="main-swiper">
       <swiper-slide
         v-for="(slide, index) in slides"
         :key="index"
@@ -13,7 +13,9 @@
     </swiper>
     <swiper
       v-bind="thumbnailsSwiperOptions"
-      @swiper="onThumbnailsSwiper"
+      @swiper="setThumbsSwiper"
+      :modules="[Thumbs]"
+      watch-slides-progress
       class="thumbnails-swiper"
     >
       <swiper-slide
@@ -29,85 +31,104 @@
 
 
 <script>
+import { ref } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import SwiperCore, { Thumbs,Navigation, } from "swiper";
+import SwiperCore, { Thumbs, Navigation } from "swiper";
 import "swiper/swiper-bundle.min.css";
-
-SwiperCore.use([Thumbs, Navigation,]);
+SwiperCore.use([Thumbs, Navigation]);
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
   },
-  data() {
+  setup() {
+    const swiper = ref(null);
+    const thumbsSwiper = ref(null);
+    const slides = ref([
+      { src: "/_nuxt/assets/image/slide1.jpg", title: "Slide 1" },
+      { src: "/_nuxt/assets/image/slide2.jpg", title: "Slide 2" },
+      { src: "/_nuxt/assets/image/slide3.jpg", title: "Slide 3" },
+      { src: "/_nuxt/assets/image/slide4.jpg", title: "Slide 4" },
+      { src: "/_nuxt/assets/image/slide5.jpg", title: "Slide 5" },
+    ]);
+    const swiperOptions = ref({
+      slidesPerView: 1,
+      spaceBetween: 10,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      scrollbar: {
+        el: ".swiper-scrollbar",
+      },
+      thumbs: {
+        swiper: null,
+      },
+    });
+    const thumbnailsSwiperOptions = ref({
+      spaceBetween: 30,
+      slidesPerView: 5,
+      slideToClickedSlide: true,
+      watchSlidesVisibility: true,
+      watchSlidesProgress: true,
+      loop: true,
+      loopedSlides: 5,
+    });
+
+    // const onSwiper = (swiper) => {
+    //   swiperOptions.value.thumbs.swiper = thumbnailsSwiper.value;
+    //   swiper.value.thumbs.swiper = thumbnailsSwiper.value;
+    // };
+
+    // const onThumbnailsSwiper = (thumbnailsSwiper) => {
+    //   thumbnailsSwiperOptions.value.thumbs.swiper = swiper.value;
+    //   thumbnailsSwiper.value.thumbs.swiper = swiper.value;
+    // };
+
+    const setThumbsSwiper = (swiper) => {
+        thumbsSwiper.value = swiper;
+      };
+
+    // onMounted(() => {
+    //   swiperOptions.value.thumbs.swiper = thumbnailsSwiper.value;
+    //   thumbnailsSwiperOptions.value.thumbs.swiper = swiper.value;
+    // });
+
     return {
-      swiper: null,
-      thumbnailsSwiper: null,
-      swiperOptions: {
-        slidesPerView: 1,
-        spaceBetween: 10,
-        loop: true,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        scrollbar: {
-          el: ".swiper-scrollbar",
-        },
-        thumbs: {
-          swiper: null,
-        },
-      },
-      thumbnailsSwiperOptions: {
-        spaceBetween: 30,
-        slidesPerView: 5,
-        centeredSlides: false,
-        slideToClickedSlide: true,
-        watchSlidesVisibility: true,
-        watchSlidesProgress: true,
-        loop: true,
-        loopedSlides: 5,
-      },
-      slides: [
-        { src: "/_nuxt/assets/image/slide1.jpg", title: "Slide 1" },
-        { src: "/_nuxt/assets/image/slide2.jpg", title: "Slide 2" },
-        { src: "/_nuxt/assets/image/slide3.jpg", title: "Slide 3" },
-        { src: "/_nuxt/assets/image/slide4.jpg", title: "Slide 4" },
-        { src: "/_nuxt/assets/image/slide5.jpg", title: "Slide 5" },
-      ],
+      swiper,
+      thumbsSwiper,
+      slides,
+      swiperOptions,
+      thumbnailsSwiperOptions,
+      // onSwiper,
+      // onThumbnailsSwiper,
+      setThumbsSwiper,
+      Thumbs,
     };
-  },
-  methods: {
-    onSwiper(swiper) {
-      this.swiper = swiper;
-      this.swiperOptions.thumbs.swiper = this.thumbnailsSwiper;
-    },
-    onThumbnailsSwiper(thumbnailsSwiper) {
-      this.thumbnailsSwiper = thumbnailsSwiper;
-      this.swiperOptions.thumbs.swiper = thumbnailsSwiper;
-    },
   },
 };
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 .slide-image {
   position: relative;
   padding-top: 60%;
-}
-.slide-image img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 .thumbnails-swiper {
   margin-top: 10px;
@@ -156,8 +177,8 @@ export default {
   transform: rotate(45deg) translateY(-50%);
 }
 .swiper-prev::after {
-  left: 20px;
   top: 21%;
+  left: 20px;
   transform: rotate(-135deg) translateY(-50%);
 }
 </style>
