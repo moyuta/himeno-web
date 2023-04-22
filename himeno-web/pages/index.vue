@@ -11,6 +11,7 @@
     />
     <CarouselSlider />
     <BasicTable />
+    <ResponsiveTable />
   </div>
 </template>
 
@@ -18,11 +19,13 @@
 import { LinkButton } from "../components/atoms/Button";
 import { CarouselSlider } from "../components/atoms/Carousel";
 import { BasicTable } from "../components/atoms/Table";
+import { ResponsiveTable } from "../components/atoms/Table";
 export default {
   components: {
     LinkButton,
     CarouselSlider,
     BasicTable,
+    ResponsiveTable,
   },
   setup() {
     return {};

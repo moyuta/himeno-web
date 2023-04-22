@@ -1,6 +1,11 @@
 <template>
   <div>
-    <swiper v-bind="swiperOptions" @swiper="onSwiper" :modules="[Thumbs]" :thumbs="{ swiper: thumbsSwiper }" class="main-swiper">
+    <swiper
+      v-bind="swiperOptions"
+      :modules="[Thumbs]"
+      :thumbs="{ swiper: thumbsSwiper }"
+      class="main-swiper"
+    >
       <swiper-slide
         v-for="(slide, index) in slides"
         :key="index"
@@ -92,8 +97,8 @@ export default {
     // };
 
     const setThumbsSwiper = (swiper) => {
-        thumbsSwiper.value = swiper;
-      };
+      thumbsSwiper.value = swiper;
+    };
 
     // onMounted(() => {
     //   swiperOptions.value.thumbs.swiper = thumbnailsSwiper.value;
